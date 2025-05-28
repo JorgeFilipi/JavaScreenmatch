@@ -164,7 +164,27 @@ public class Principal {
                 .filter(e -> e.getAvaliacao() > 0.0)
                 .collect(Collectors.summarizingDouble(Episodio::getAvaliacao));
 
-        System.out.println("média: " + est.getAverage());
+        System.out.println("média de avaliação da série : " + est.getAverage());
+        System.out.println("A quantidade de episódios da série: " + est.getCount());
+
+        System.out.println("\nO pior episódio da série: " + nomeSerie.toUpperCase());
+        Optional<Episodio> piorEpisodio = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .sorted(Comparator.comparing(Episodio::getAvaliacao))
+                .limit(1)
+                .findFirst();
+
+        System.out.println("Titulo: " + piorEpisodio.get().getTitulo().toUpperCase() + ", Temporada: " + piorEpisodio.get().getTemporada() + ", nota: " + piorEpisodio.get().getAvaliacao());
+
+        System.out.println("\nO melhor episódio da série: " + nomeSerie.toUpperCase());
+        Optional<Episodio> melhorEpisodio = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .sorted(Comparator.comparing(Episodio::getAvaliacao).reversed())
+                .limit(1)
+                .findFirst();
+
+        System.out.println("Titulo: " + melhorEpisodio.get().getTitulo().toUpperCase() + ", Temporada: " + melhorEpisodio.get().getTemporada() + ", nota: " + melhorEpisodio.get().getAvaliacao());
+
 
     }
 
